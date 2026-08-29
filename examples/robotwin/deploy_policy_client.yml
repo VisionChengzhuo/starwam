@@ -1,0 +1,35 @@
+# RoboTwin deploy-policy config for the StarWAM socket client (SAPIEN side).
+#
+# Use this when SAPIEN and the Torch/StarWAM stack live in separate envs:
+#   1) In the Torch/StarWAM env, start the inference server:
+#        python -m examples.robotwin.policy_server \
+#          --config /path/to/recipe.yaml \
+#          --checkpoint /path/to/checkpoint-XXXX/pytorch_model \
+#          --override backbone.pretrained_model_id=/path/to/Wan2.2-TI2V-5B \
+#                     data.action_stats_path=/path/to/action_stats.json \
+#                     data.state_stats_path=/path/to/action_stats.json \
+#                     data.text_embedding_cache_dir=/path/to/text_embedding_cache \
+#          --host 0.0.0.0 --port 8765
+#   2) In the RoboTwin (SAPIEN) env, symlink this shared RoboTwin adapter dir:
+#        ln -s /ABS/PATH/starWAM/examples/robotwin RoboTwin/policy/starwam_client
+#        python script/eval_policy.py \
+#          --config policy/starwam_client/deploy_policy_client.yml \
+#          --overrides policy_name starwam_client task_name <task> \
+#                      task_config demo_randomized instruction_type unseen \
+#                      ckpt_setting <tag> seed 0 \
+#                      server_host 127.0.0.1 server_port 8765
+
+# --- Standard RoboTwin keys (set via --overrides at launch) ---
+policy_name: starwam_client
+task_name: null
+task_config: null
+ckpt_setting: null
+seed: 0
+instruction_type: unseen
+
+# --- Client keys (read by deploy_policy.get_model) ---
+policy_mode: client
+server_host: 127.0.0.1
+server_port: 8765
+# Fast-WAM RoboTwin eval replans every 24 of 32 chunk steps.
+replan_steps: 24

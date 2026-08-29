@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "starwam"
+version = "0.1.0"
+description = "StarWAM world-action model framework"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.1.0",
+    "pyyaml>=6.0",
+    "einops>=0.7.0",
+]
+
+[project.optional-dependencies]
+train = [
+    "accelerate>=0.25.0",
+    "deepspeed>=0.12.0",
+    "wandb>=0.16.0",
+    "av==12.3.0",
+]
+tos = ["tos>=2.9.2,<3"]
+dev = [
+    "pytest>=7.0",
+    "pyright>=1.1",
+]
+
+[tool.setuptools.packages.find]
+include = ["starwam*"]

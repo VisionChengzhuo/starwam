@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.pyright/
+.ruff_cache/
+
+# Env / local
+.env
+.env.*
+.venv/
+venv/
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Training / experiment outputs
+wandb/
+runs/
+outputs/
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Local agent/tooling
+.claude/
+.comate/
+
+# Reference repos not part of release
+refs/
+
+*.egg-info
+.empty
+
+temp/
+.deepspeed_env
